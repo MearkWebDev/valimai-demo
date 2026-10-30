@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Linkedin, User } from "lucide-react";
+import { ArrowRight, Check, Eye, Target } from "lucide-react";
 import hero from "@/assets/hero-about.jpg";
 import { values } from "@/lib/content/offerings";
 import { pageHead } from "@/lib/seo";
 import { PageHero, SectionHeading } from "@/components/site/blocks";
 import { Reveal } from "@/components/site/Reveal";
+import { company } from "@/lib/content/company";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -70,16 +71,18 @@ function About() {
         </div>
       </section>
 
-      <section className="py-24 md:py-32">
-        <div className="container-x grid gap-px bg-border md:grid-cols-2">
+      <section className="vision-mission relative overflow-hidden bg-navy-deep py-24 text-on-dark md:py-32">
+        <div className="container-x relative grid gap-14 md:grid-cols-2 md:gap-0">
           {[
             ["Our vision", "To play a supporting role in transforming India into a Developed Nation by 2047.", "We align our work with India's national ambition for 2047, helping bring the investment, technology, partnerships and execution discipline that a developed India needs."],
             ["Our mission", "To engage international technology and automation providers for a safe and sustainable India.", "We connect India with world-class international technology and automation partners, and guide their responsible entry and adoption, so that innovation improves safety, sustainability, productivity and job creation across the nation."],
           ].map(([e, t, d], i) => (
-            <Reveal key={e} delay={i * 120} className="bg-background p-10 md:p-14">
-              <p className="eyebrow">{e}</p>
-              <h2 className="mt-5 text-2xl leading-snug text-navy md:text-3xl">{t}</h2>
-              <p className="mt-5 leading-relaxed text-muted-foreground">{d}</p>
+            <Reveal key={e} delay={i * 120} className={`vision-statement ${i === 0 ? "md:border-r md:border-on-dark/20 md:pr-14" : "border-t border-on-dark/20 pt-12 md:border-t-0 md:pl-14 md:pt-0"}`}>
+              {i === 0 ? <Eye className="mb-8 h-9 w-9 text-cyan" strokeWidth={1} /> : <Target className="mb-8 h-9 w-9 text-cyan" strokeWidth={1} />}
+              <p className="eyebrow !text-cyan">{e}</p>
+              <h2 className="mt-6 text-3xl leading-snug text-on-dark md:text-4xl">{t}</h2>
+              <div className="my-8 h-px w-16 bg-cyan" />
+              <p className="leading-relaxed text-on-dark-muted">{d}</p>
             </Reveal>
           ))}
         </div>
@@ -116,19 +119,13 @@ function About() {
 
       <section className="bg-surface py-24 md:py-32">
         <div className="container-x">
-          <SectionHeading eyebrow="Leadership team" title="The people you work with" text="Leadership profiles will be added here." />
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[0, 1, 2].map((i) => (
-              <Reveal key={i} delay={i * 90} className="bg-background">
-                <div className="flex aspect-[4/5] items-center justify-center bg-accent">
-                  <User className="h-16 w-16 text-teal/50" strokeWidth={1} />
-                </div>
-                <div className="p-7">
-                  <h3 className="text-xl text-navy">[Founder / Director name]</h3>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-teal">[Title]</p>
-                  <p className="mt-4 text-sm text-muted-foreground">[2–3 line bio covering experience, sectors and Government / international exposure]</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-xs text-muted-foreground"><Linkedin className="h-4 w-4" /> [LinkedIn link]</span>
-                </div>
+          <SectionHeading eyebrow="Leadership" title="The people you work with" />
+          <div className="mt-14 max-w-xl">
+            {company.leaders.map((leader) => (
+              <Reveal key={leader.name} className="founder-card border-t-2 border-teal bg-background p-9 transition-all duration-500 hover:-translate-y-1 hover:shadow-soft md:p-12">
+                <p className="mb-8 font-display text-5xl text-teal/60" aria-hidden="true">GK</p>
+                <h3 className="text-3xl text-navy">{leader.name}</h3>
+                <p className="mt-3 text-sm font-medium text-muted-foreground">{leader.designation}</p>
               </Reveal>
             ))}
           </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { z } from "zod";
 import { CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const SERVICE_OPTIONS = [
   "Market Research & Strategic Advisory",
@@ -29,8 +30,8 @@ export const consultationSchema = z.object({
 
 type Errors = Partial<Record<string, string>>;
 
-const field = "w-full border border-input bg-background px-4 py-3 text-sm text-foreground outline-none transition-colors focus:border-royal";
-const label = "mb-2 block text-xs font-semibold uppercase tracking-[0.1em] text-navy";
+const field = "min-w-0 w-full rounded-sm border border-input bg-surface/40 px-4 py-3.5 text-sm leading-relaxed text-foreground outline-none transition-all duration-200 hover:border-teal/60 focus:border-royal focus:bg-background focus:ring-2 focus:ring-ring/15 aria-invalid:border-destructive";
+const label = "mb-2.5 block text-sm font-medium text-navy";
 
 export function ConsultationForm() {
   const [errors, setErrors] = useState<Errors>({});
@@ -58,7 +59,7 @@ export function ConsultationForm() {
         <CheckCircle2 className="h-10 w-10 text-teal" />
         <h3 className="mt-5 text-2xl text-navy">Thank you.</h3>
         <p className="mt-3 text-muted-foreground">Your details passed validation. Online submission is not connected yet, so this enquiry has not been sent.</p>
-        <button className="link-arrow mt-6" onClick={() => setDone(false)}>Back to the form</button>
+        <Button variant="link" className="mt-6 px-0" onClick={() => setDone(false)}>Back to the form</Button>
       </div>
     );
   }
@@ -106,7 +107,7 @@ export function ConsultationForm() {
         <p className="text-sm text-destructive sm:col-span-2" role="alert">Please correct the highlighted fields.</p>
       )}
       <div className="sm:col-span-2">
-        <button type="submit" className="btn btn-primary w-full sm:w-auto">Book a Consulting Meeting</button>
+        <Button type="submit" size="lg" className="btn btn-primary h-auto w-full whitespace-normal sm:w-auto">Book a Consulting Meeting</Button>
       </div>
     </form>
   );

@@ -11,3 +11,7 @@
 
 - Site content (offerings, values) lives in `src/lib/content/offerings.ts`; offering pages render from it via `/offerings/$slug` so copy stays in one place.
 - Consultation form validates client-side only (zod schema exported from `ConsultationForm.tsx`); no backend is wired yet.
+- Verified company contact and leadership data live in a shared content module so About, Contact and footer stay consistent.
+- Original brand uploads are CDN asset pointers; the navbar uses the transparent asset on a dark surface for metallic contrast.
+- Desktop offering navigation uses explicit enter/leave/navigation state, rather than CSS hover visibility, to prevent reopening after a click.
+- Shared motion and typography rules live in the global stylesheet; reduced-motion overrides disable nonessential transitions across all pages.
