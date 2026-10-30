@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Site content (offerings, values) lives in `src/lib/content/offerings.ts`; offering pages render from it via `/offerings/$slug` so copy stays in one place.
+- Consultation form validates client-side only (zod schema exported from `ConsultationForm.tsx`); no backend is wired yet.
