@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
+import { Route as EthicsComplianceRouteImport } from './routes/ethics-compliance'
+import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as TermsOfUseRouteImport } from './routes/terms-of-use'
+import { Route as OfferingsIndexRouteImport } from './routes/offerings.index'
+import { Route as OfferingsSlugRouteImport } from './routes/offerings.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiePolicyRoute = CookiePolicyRouteImport.update({
+  id: '/cookie-policy',
+  path: '/cookie-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EthicsComplianceRoute = EthicsComplianceRouteImport.update({
+  id: '/ethics-compliance',
+  path: '/ethics-compliance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfUseRoute = TermsOfUseRouteImport.update({
+  id: '/terms-of-use',
+  path: '/terms-of-use',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfferingsIndexRoute = OfferingsIndexRouteImport.update({
+  id: '/offerings/',
+  path: '/offerings/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfferingsSlugRoute = OfferingsSlugRouteImport.update({
+  id: '/offerings/$slug',
+  path: '/offerings/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
+  '/ethics-compliance': typeof EthicsComplianceRoute
+  '/insights': typeof InsightsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-of-use': typeof TermsOfUseRoute
+  '/offerings/$slug': typeof OfferingsSlugRoute
+  '/offerings/': typeof OfferingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
+  '/ethics-compliance': typeof EthicsComplianceRoute
+  '/insights': typeof InsightsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-of-use': typeof TermsOfUseRoute
+  '/offerings/$slug': typeof OfferingsSlugRoute
+  '/offerings': typeof OfferingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
+  '/ethics-compliance': typeof EthicsComplianceRoute
+  '/insights': typeof InsightsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms-of-use': typeof TermsOfUseRoute
+  '/offerings/$slug': typeof OfferingsSlugRoute
+  '/offerings/': typeof OfferingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/cookie-policy'
+    | '/ethics-compliance'
+    | '/insights'
+    | '/privacy-policy'
+    | '/terms-of-use'
+    | '/offerings/$slug'
+    | '/offerings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/cookie-policy'
+    | '/ethics-compliance'
+    | '/insights'
+    | '/privacy-policy'
+    | '/terms-of-use'
+    | '/offerings/$slug'
+    | '/offerings'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/cookie-policy'
+    | '/ethics-compliance'
+    | '/insights'
+    | '/privacy-policy'
+    | '/terms-of-use'
+    | '/offerings/$slug'
+    | '/offerings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  CookiePolicyRoute: typeof CookiePolicyRoute
+  EthicsComplianceRoute: typeof EthicsComplianceRoute
+  InsightsRoute: typeof InsightsRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  TermsOfUseRoute: typeof TermsOfUseRoute
+  OfferingsSlugRoute: typeof OfferingsSlugRoute
+  OfferingsIndexRoute: typeof OfferingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookie-policy': {
+      id: '/cookie-policy'
+      path: '/cookie-policy'
+      fullPath: '/cookie-policy'
+      preLoaderRoute: typeof CookiePolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ethics-compliance': {
+      id: '/ethics-compliance'
+      path: '/ethics-compliance'
+      fullPath: '/ethics-compliance'
+      preLoaderRoute: typeof EthicsComplianceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-use': {
+      id: '/terms-of-use'
+      path: '/terms-of-use'
+      fullPath: '/terms-of-use'
+      preLoaderRoute: typeof TermsOfUseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offerings/': {
+      id: '/offerings/'
+      path: '/offerings'
+      fullPath: '/offerings/'
+      preLoaderRoute: typeof OfferingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offerings/$slug': {
+      id: '/offerings/$slug'
+      path: '/offerings/$slug'
+      fullPath: '/offerings/$slug'
+      preLoaderRoute: typeof OfferingsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  CookiePolicyRoute: CookiePolicyRoute,
+  EthicsComplianceRoute: EthicsComplianceRoute,
+  InsightsRoute: InsightsRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  TermsOfUseRoute: TermsOfUseRoute,
+  OfferingsSlugRoute: OfferingsSlugRoute,
+  OfferingsIndexRoute: OfferingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
