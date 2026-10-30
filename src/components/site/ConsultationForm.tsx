@@ -83,7 +83,7 @@ export function ConsultationForm() {
       {F({name: "phone", text: "Phone Number", type: "tel", auto: "tel"})}
       <div className="sm:col-span-2">
         <label htmlFor="service" className={label}>Service Interested In *</label>
-        <select id="service" name="service" defaultValue="" className={field} aria-invalid={!!errors.service}>
+        <select id="service" name="service" defaultValue="" className={field} aria-invalid={!!errors["service"]}>
           <option value="" disabled>Select a service</option>
           {SERVICE_OPTIONS.map((s) => <option key={s}>{s}</option>)}
         </select>
@@ -92,7 +92,7 @@ export function ConsultationForm() {
       <div className="sm:col-span-2">{F({name: "objective", text: "Business Objective"})}</div>
       <div className="sm:col-span-2">
         <label htmlFor="message" className={label}>Message *</label>
-        <textarea id="message" name="message" rows={5} className={field} aria-invalid={!!errors.message} />
+        <textarea id="message" name="message" rows={5} className={field} aria-invalid={!!errors["message"]} />
         {err("message")}
       </div>
       <div className="sm:col-span-2">

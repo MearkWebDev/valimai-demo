@@ -44,11 +44,11 @@ const steps = [
 ];
 
 const goals = [
-  { q: "I need to know if India is right for us.", slug: offerings[0].slug },
-  { q: "We're ready to enter or expand in India.", slug: offerings[1].slug },
-  { q: "We need someone to manage our relationships on the ground.", slug: offerings[2].slug },
-  { q: "We're looking for a partner, manufacturer or investor.", slug: offerings[3].slug },
-  { q: "We have a major programme that must be delivered.", slug: offerings[4].slug },
+  { q: "I need to know if India is right for us.", slug: offerings[0]!.slug },
+  { q: "We're ready to enter or expand in India.", slug: offerings[1]!.slug },
+  { q: "We need someone to manage our relationships on the ground.", slug: offerings[2]!.slug },
+  { q: "We're looking for a partner, manufacturer or investor.", slug: offerings[3]!.slug },
+  { q: "We have a major programme that must be delivered.", slug: offerings[4]!.slug },
 ];
 
 const stats = [
@@ -60,7 +60,7 @@ const stats = [
 
 function Home() {
   const [goal, setGoal] = useState(0);
-  const selected = offerings.find((o) => o.slug === goals[goal].slug)!;
+  const selected = offerings.find((o) => o.slug === goals[goal]!.slug)!;
 
   return (
     <>

@@ -22,8 +22,8 @@ const categories = ["All", "India Market Entry", "AI & Automation", "Viksit Bhar
 
 // Placeholder slots only — no articles have been published yet.
 const placeholders = categories.slice(1).flatMap((c, i) => [
-  { cat: c, img: offerings[i % 5].image, title: `[Article title — ${c}]` },
-  { cat: c, img: offerings[(i + 2) % 5].image, title: `[Article title — ${c}]` },
+  { cat: c, img: offerings[i % 5]!.image, title: `[Article title — ${c}]` },
+  { cat: c, img: offerings[(i + 2) % 5]!.image, title: `[Article title — ${c}]` },
 ]);
 
 function Insights() {
@@ -48,7 +48,7 @@ function Insights() {
         <div className="container-x">
           <Reveal className="grid overflow-hidden border lg:grid-cols-2">
             <div className="aspect-[16/10] bg-accent lg:aspect-auto">
-              <img src={offerings[1].image} alt="" loading="lazy" className="h-full w-full object-cover opacity-80" />
+              <img src={offerings[1]!.image} alt="" loading="lazy" className="h-full w-full object-cover opacity-80" />
             </div>
             <div className="flex flex-col justify-center p-10 md:p-14">
               <p className="eyebrow">Featured · Coming soon</p>
