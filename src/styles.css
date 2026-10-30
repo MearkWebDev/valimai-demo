@@ -42,17 +42,17 @@
 
 :root {
   --radius: 0.25rem;
-  --navy: oklch(0.25 0.08 262);
-  --navy-deep: oklch(0.17 0.05 262);
-  --royal: oklch(0.47 0.17 260);
-  --teal: oklch(0.6 0.11 225);
-  --cyan: oklch(0.82 0.12 205);
-  --on-dark: oklch(0.98 0.005 240);
-  --on-dark-muted: oklch(0.82 0.03 240);
-  --surface: oklch(0.972 0.006 240);
+  --navy: #283846;
+  --navy-deep: #141f2a;
+  --royal: #3a4d5d;
+  --teal: #586f82;
+  --cyan: #c5c8cc;
+  --on-dark: #f2f2f2;
+  --on-dark-muted: #c5cbd1;
+  --surface: #f3f5f7;
 
   --background: oklch(1 0 0);
-  --foreground: oklch(0.22 0.04 262);
+  --foreground: #202c3a;
   --card: oklch(1 0 0);
   --card-foreground: var(--foreground);
   --popover: oklch(1 0 0);
@@ -62,19 +62,19 @@
   --secondary: var(--surface);
   --secondary-foreground: var(--navy);
   --muted: var(--surface);
-  --muted-foreground: oklch(0.48 0.03 255);
-  --accent: oklch(0.95 0.02 220);
+  --muted-foreground: #56616d;
+  --accent: #e7ecf0;
   --accent-foreground: var(--navy);
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.91 0.01 245);
-  --input: oklch(0.88 0.015 245);
+  --border: #dce1e6;
+  --input: #cbd3db;
   --ring: var(--royal);
 
-  --gradient-brand: linear-gradient(120deg, var(--navy) 0%, var(--royal) 45%, var(--teal) 75%, var(--cyan) 100%);
-  --gradient-hero: linear-gradient(100deg, oklch(0.17 0.05 262 / 0.92) 0%, oklch(0.2 0.07 262 / 0.75) 45%, oklch(0.25 0.08 240 / 0.25) 100%);
-  --gradient-dark: linear-gradient(180deg, oklch(0.17 0.05 262 / 0.85), oklch(0.17 0.05 262 / 0.95));
-  --shadow-soft: 0 20px 50px -25px oklch(0.25 0.08 262 / 0.35);
+  --gradient-brand: linear-gradient(120deg, var(--navy-deep), var(--navy) 55%, var(--royal));
+  --gradient-hero: linear-gradient(100deg, color-mix(in srgb, var(--navy-deep) 94%, transparent), color-mix(in srgb, var(--navy-deep) 75%, transparent) 45%, color-mix(in srgb, var(--navy) 30%, transparent));
+  --gradient-dark: linear-gradient(180deg, color-mix(in srgb, var(--navy-deep) 85%, transparent), color-mix(in srgb, var(--navy-deep) 95%, transparent));
+  --shadow-soft: 0 20px 50px -25px color-mix(in srgb, var(--navy-deep) 35%, transparent);
 }
 
 @layer base {
@@ -87,7 +87,7 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: 0; }
 }
 
 @utility container-x {
@@ -102,8 +102,8 @@
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--teal);
 }
 
@@ -127,8 +127,8 @@
   padding: 0.9rem 1.6rem;
   font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   border-radius: var(--radius);
   transition: all 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
   &:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
@@ -164,8 +164,8 @@
   gap: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--royal);
   & svg { transition: transform 0.3s ease; }
   &:hover svg { transform: translateX(4px); }
@@ -197,4 +197,42 @@
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Shared original-brand presentation and motion. */
+.brand-logo { display: block; width: 5rem; height: 5rem; }
+.brand-logo-footer { width: 8rem; height: 8rem; }
+.offering-dropdown { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(8px); transition: opacity 220ms ease, transform 220ms ease, visibility 220ms; }
+.offering-dropdown.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.nav-link { position: relative; }
+.nav-link::after { content: ""; position: absolute; bottom: -7px; left: 0; width: 100%; height: 1px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform 250ms ease; }
+.nav-link:hover::after { transform: scaleX(1); }
+.vision-mission { background-image: linear-gradient(125deg, var(--navy-deep), var(--navy) 65%, var(--royal)); }
+.vision-mission::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, color-mix(in srgb, var(--cyan) 5%, transparent) 50%, transparent 65%); background-size: 250% 100%; animation: silver-sweep 20s ease-in-out infinite alternate; pointer-events: none; }
+.page-transition { animation: page-enter 420ms ease both; }
+.mobile-navigation { animation: page-enter 220ms ease both; }
+.page-hero h1, .page-hero p { overflow-wrap: break-word; }
+.page-hero .btn { max-width: 100%; white-space: normal; text-align: center; }
+main section { scroll-margin-top: 6rem; }
+input, select, textarea { font-family: var(--font-sans); }
+button, a { -webkit-tap-highlight-color: transparent; }
+[class*="tracking-"] { letter-spacing: 0; }
+.eyebrow { font-size: 0.78rem; line-height: 1.6; }
+h1, h2, h3 { text-wrap: balance; }
+@keyframes page-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes silver-sweep { from { background-position: 0% 0%; } to { background-position: 100% 0%; } }
+@media (min-width: 768px) { .brand-logo:not(.brand-logo-footer) { width: 5.5rem; height: 5.5rem; } }
+@media (max-width: 639px) {
+  .page-hero { min-height: 76svh; }
+  .page-hero > .container-x { padding-top: 9rem; padding-bottom: 3.5rem; }
+  .page-hero h1 { font-size: 2.25rem; line-height: 1.18; }
+  .page-hero .font-display.text-4xl { font-size: 2.25rem; }
+  .page-hero .btn { width: 100%; }
+  .page-hero p.text-base { font-size: 0.95rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; transition-delay: 0ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .img-zoom:hover img, .btn:hover { transform: none; }
 }
