@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock, Globe2, Mail, MapPin, Phone } from "lucide-react";
+import { Globe2, Mail, MapPin, Phone } from "lucide-react";
 import hero from "@/assets/hero-contact.jpg";
 import { pageHead } from "@/lib/seo";
 import { PageHero } from "@/components/site/blocks";
 import { ConsultationForm } from "@/components/site/ConsultationForm";
 import { Reveal } from "@/components/site/Reveal";
+import { company } from "@/lib/content/company";
 
 export const Route = createFileRoute("/contact")({
   head: () =>
@@ -37,22 +38,17 @@ function Contact() {
             <ConsultationForm />
           </Reveal>
           <Reveal delay={150} className="lg:col-span-5">
-            <div className="bg-navy p-10 text-on-dark">
+            <div className="contact-details bg-navy p-7 text-on-dark sm:p-10">
               <p className="eyebrow !text-cyan">Contact details</p>
               <p className="mt-4 font-display text-2xl">Valimai Private Limited</p>
-              <div className="mt-6 space-y-4 text-sm text-on-dark-muted">
-                <p className="flex gap-3"><MapPin className="h-4 w-4 shrink-0 text-cyan" />[Registered office address], [City, State, PIN]</p>
-                <p className="flex gap-3"><Mail className="h-4 w-4 shrink-0 text-cyan" />[info@domain]</p>
-                <p className="flex gap-3"><Phone className="h-4 w-4 shrink-0 text-cyan" />[+91 ...]</p>
-                <p className="flex gap-3"><Clock className="h-4 w-4 shrink-0 text-cyan" />Monday–Friday, 9:30 am – 6:30 pm IST</p>
-                <p className="text-xs">CIN: [Company Identification Number]</p>
+              <div className="mt-8 divide-y divide-on-dark/15 text-sm text-on-dark-muted">
+                <div className="flex gap-4 py-5"><MapPin className="h-5 w-5 shrink-0 text-cyan" /><div className="min-w-0"><p className="mb-2 text-xs text-cyan">Location</p><p>{company.location}</p></div></div>
+                <div className="flex gap-4 py-5"><Mail className="h-5 w-5 shrink-0 text-cyan" /><div className="min-w-0"><p className="mb-2 text-xs text-cyan">Email</p><a href={`mailto:${company.email}`} className="break-words transition-colors hover:text-on-dark">{company.email}</a></div></div>
+                <div className="flex gap-4 py-5"><Phone className="h-5 w-5 shrink-0 text-cyan" /><div className="min-w-0"><p className="mb-2 text-xs text-cyan">Phone</p><a href={company.phoneHref} className="transition-colors hover:text-on-dark">{company.phone}</a></div></div>
               </div>
             </div>
             <div className="mt-6">
               <div className={row}><Globe2 className="h-5 w-5 shrink-0 text-teal" />We respond to every enquiry within two business days. International clients are welcome to request a video call across time zones.</div>
-            </div>
-            <div className="mt-6 flex aspect-[4/3] items-center justify-center border border-dashed bg-surface text-xs uppercase tracking-[0.14em] text-muted-foreground">
-              [Map of registered office]
             </div>
           </Reveal>
         </div>

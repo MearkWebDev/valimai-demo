@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Linkedin } from "lucide-react";
 import { Logo } from "./Logo";
 import { offerings } from "@/lib/content/offerings";
+import { company } from "@/lib/content/company";
 
 export function SiteFooter() {
   const h = "mb-5 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-cyan";
@@ -16,10 +16,6 @@ export function SiteFooter() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link to="/contact" className="btn btn-light !py-3">Book a Consulting Meeting</Link>
-            {/* LinkedIn URL to be confirmed */}
-            <a href="#" aria-label="LinkedIn (link to be added)" className="flex h-11 w-11 items-center justify-center border border-on-dark/30 transition-colors hover:border-cyan hover:text-cyan">
-              <Linkedin className="h-4 w-4" />
-            </a>
           </div>
         </div>
         <div className="lg:col-span-3">
@@ -44,9 +40,9 @@ export function SiteFooter() {
         <div className="lg:col-span-3">
           <p className={h}>Contact</p>
           <address className="space-y-2 text-sm not-italic leading-relaxed text-on-dark-muted">
-            <p>[Registered office, City, PIN]</p>
-            <p>[New Delhi office, if any]</p>
-            <p>[email] · [phone]</p>
+            <p>{company.location}</p>
+            <p><a href={`mailto:${company.email}`} className={a}>{company.email}</a></p>
+            <p><a href={company.phoneHref} className={a}>{company.phone}</a></p>
           </address>
           <p className={`${h} mt-8`}>Legal</p>
           <ul className="space-y-2">
