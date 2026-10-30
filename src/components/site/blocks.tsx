@@ -25,7 +25,7 @@ export function PageHero({
   tall?: boolean;
 }) {
   return (
-    <section className={`relative flex items-end overflow-hidden bg-navy-deep ${tall ? "min-h-[100svh]" : image ? "min-h-[78svh]" : "min-h-[44svh]"}`}>
+    <section className={`page-hero relative flex items-end overflow-hidden bg-navy-deep ${tall ? "min-h-[88svh]" : image ? "min-h-[78svh]" : "min-h-[44svh]"}`}>
       {image && (
         <img
           src={image}

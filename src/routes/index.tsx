@@ -9,6 +9,7 @@ import { offerings, values } from "@/lib/content/offerings";
 import { pageHead } from "@/lib/seo";
 import { CtaBand, OfferingCard, PageHero, SectionHeading } from "@/components/site/blocks";
 import { Reveal } from "@/components/site/Reveal";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -44,23 +45,17 @@ const steps = [
 ];
 
 const goals = [
-  { q: "I need to know if India is right for us.", slug: offerings[0]!.slug },
-  { q: "We're ready to enter or expand in India.", slug: offerings[1]!.slug },
-  { q: "We need someone to manage our relationships on the ground.", slug: offerings[2]!.slug },
-  { q: "We're looking for a partner, manufacturer or investor.", slug: offerings[3]!.slug },
-  { q: "We have a major programme that must be delivered.", slug: offerings[4]!.slug },
-];
-
-const stats = [
-  "Years of combined senior experience",
-  "Sectors served",
-  "International partners engaged",
-  "States & capital regions covered",
+  { q: "I need to know if India is right for us.", slug: offerings[0]?.slug ?? "" },
+  { q: "We're ready to enter or expand in India.", slug: offerings[1]?.slug ?? "" },
+  { q: "We need someone to manage our relationships on the ground.", slug: offerings[2]?.slug ?? "" },
+  { q: "We're looking for a partner, manufacturer or investor.", slug: offerings[3]?.slug ?? "" },
+  { q: "We have a major programme that must be delivered.", slug: offerings[4]?.slug ?? "" },
 ];
 
 function Home() {
   const [goal, setGoal] = useState(0);
-  const selected = offerings.find((o) => o.slug === goals[goal]!.slug)!;
+  const selected = offerings.find((o) => o.slug === goals[goal]?.slug);
+  if (!selected) return null;
 
   return (
     <>
@@ -208,17 +203,18 @@ function Home() {
           <div className="mt-14 grid gap-8 lg:grid-cols-12">
             <div className="flex flex-col gap-2 lg:col-span-6" role="tablist" aria-label="India journey goals">
               {goals.map((g, i) => (
-                <button
+                <Button
+                  variant="ghost"
                   key={g.q}
                   role="tab"
                   aria-selected={goal === i}
                   onClick={() => setGoal(i)}
-                  className={`border-l-2 px-6 py-5 text-left font-display text-lg transition-all duration-300 ${
+                  className={`h-auto justify-start whitespace-normal rounded-none border-l-2 px-6 py-5 text-left font-display text-lg transition-all duration-300 ${
                     goal === i ? "border-royal bg-background text-navy shadow-soft" : "border-transparent text-muted-foreground hover:border-teal/50 hover:text-navy"
                   }`}
                 >
                   "{g.q}"
-                </button>
+                </Button>
               ))}
             </div>
             <div key={selected.slug} className="animate-hero-in lg:col-span-6">
@@ -236,19 +232,6 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Credibility */}
-      <section className="border-b py-20">
-        <div className="container-x grid grid-cols-2 gap-10 md:grid-cols-4">
-          {stats.map((s, i) => (
-            <Reveal key={s} delay={i * 90} className="border-l border-teal/40 pl-6">
-              <p className="font-display text-5xl text-gradient-brand">[ ]+</p>
-              <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-navy">{s}</p>
-            </Reveal>
-          ))}
-        </div>
-        <p className="container-x mt-8 text-xs text-muted-foreground">Figures to be added once verified.</p>
       </section>
 
       <CtaBand />
