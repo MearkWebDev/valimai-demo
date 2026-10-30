@@ -219,6 +219,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 [class*="tracking-"] { letter-spacing: 0; }
 .eyebrow { font-size: 0.78rem; line-height: 1.6; }
 h1, h2, h3 { text-wrap: balance; }
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.5;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+  text-wrap: pretty;
+}
 @keyframes page-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes silver-sweep { from { background-position: 0% 0%; } to { background-position: 100% 0%; } }
 @media (min-width: 768px) { .brand-logo:not(.brand-logo-footer) { width: 5.5rem; height: 5.5rem; } }

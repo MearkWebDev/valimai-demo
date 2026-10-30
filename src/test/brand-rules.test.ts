@@ -6,7 +6,7 @@ describe("verified company details", () => {
   it("uses Chennai as the contact location", () => expect(company.location).toBe("Chennai"));
   it("uses the supplied contact email", () => expect(company.email).toBe("pranav@valimai.net"));
   it("uses the supplied contact phone", () => {
-    expect(company.phone).toBe("93421 75098");
+    expect(company.phone).toBe("+91 93421 75098");
     expect(company.phoneHref).toBe("tel:+919342175098");
   });
   it("has only the specified founder", () => {
