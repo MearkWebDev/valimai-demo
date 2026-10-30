@@ -47,7 +47,7 @@ export function SiteHeader() {
             </div>
           </div>
           <Link to="/insights" className={linkCls}>Insights</Link>
-          <Button asChild className="btn btn-light h-auto whitespace-normal px-5 py-3"><Link to="/contact">Book a Consulting Meeting</Link></Button>
+          <Button asChild variant="secondary" className="btn btn-light h-auto whitespace-normal px-5 py-3"><Link to="/contact">Book a Consulting Meeting</Link></Button>
         </nav>
         <Button variant="ghost" size="icon" className="h-11 w-11 shrink-0 text-on-dark hover:bg-on-dark/10 hover:text-on-dark lg:hidden" onClick={() => setOpen((v) => !v)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} title={open ? "Close menu" : "Open menu"}>
           {open ? <X /> : <Menu />}
@@ -68,7 +68,7 @@ export function SiteHeader() {
               </div>
             )}
             <Link to="/insights" onClick={close} className="border-b border-on-dark/15 py-4 text-sm font-medium text-on-dark">Insights</Link>
-            <Button asChild className="btn btn-light mt-6 h-auto whitespace-normal"><Link to="/contact" onClick={close}>Book a Consulting Meeting</Link></Button>
+            <Button asChild variant="secondary" className="btn btn-light mt-6 h-auto whitespace-normal"><Link to="/contact" onClick={close}>Book a Consulting Meeting</Link></Button>
           </nav>
         </div>
       )}
