@@ -15,3 +15,4 @@
 - Original brand uploads are CDN asset pointers; the navbar uses the transparent asset on a dark surface for metallic contrast.
 - Desktop offering navigation uses explicit enter/leave/navigation state, rather than CSS hover visibility, to prevent reopening after a click.
 - Shared motion and typography rules live in the global stylesheet; reduced-motion overrides disable nonessential transitions across all pages.
+- Shared card and item headlines inherit the global h3 typography rule so offering cards and their detail views remain consistent.
