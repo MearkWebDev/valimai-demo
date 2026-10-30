@@ -65,6 +65,7 @@ export function ConsultationForm() {
 
   const err = (k: string) => errors[k] && <p className="mt-1.5 text-xs text-destructive">{errors[k]}</p>;
   const F = ({ name, text, type = "text", auto }: { name: string; text: string; type?: string; auto?: string }) => (
+    // called as a function (not a component) so inputs keep their values on re-render
     <div>
       <label htmlFor={name} className={label}>{text} *</label>
       <input id={name} name={name} type={type} autoComplete={auto} className={field} aria-invalid={!!errors[name]} />
@@ -74,12 +75,12 @@ export function ConsultationForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate className="grid gap-6 sm:grid-cols-2">
-      <F name="fullName" text="Full Name" auto="name" />
-      <F name="email" text="Business Email" type="email" auto="email" />
-      <F name="company" text="Company Name" auto="organization" />
-      <F name="jobTitle" text="Job Title" auto="organization-title" />
-      <F name="country" text="Country" auto="country-name" />
-      <F name="phone" text="Phone Number" type="tel" auto="tel" />
+      {F({name: "fullName", text: "Full Name", auto: "name"})}
+      {F({name: "email", text: "Business Email", type: "email", auto: "email"})}
+      {F({name: "company", text: "Company Name", auto: "organization"})}
+      {F({name: "jobTitle", text: "Job Title", auto: "organization-title"})}
+      {F({name: "country", text: "Country", auto: "country-name"})}
+      {F({name: "phone", text: "Phone Number", type: "tel", auto: "tel"})}
       <div className="sm:col-span-2">
         <label htmlFor="service" className={label}>Service Interested In *</label>
         <select id="service" name="service" defaultValue="" className={field} aria-invalid={!!errors.service}>
@@ -88,7 +89,7 @@ export function ConsultationForm() {
         </select>
         {err("service")}
       </div>
-      <div className="sm:col-span-2"><F name="objective" text="Business Objective" /></div>
+      <div className="sm:col-span-2">{F({name: "objective", text: "Business Objective"})}</div>
       <div className="sm:col-span-2">
         <label htmlFor="message" className={label}>Message *</label>
         <textarea id="message" name="message" rows={5} className={field} aria-invalid={!!errors.message} />
