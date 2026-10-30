@@ -56,7 +56,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-on-dark/10">
         <div className="container-x flex flex-col gap-3 py-6 text-xs text-on-dark-muted md:flex-row md:flex-wrap md:items-center md:justify-between">
-          <p>© 2026 Valimai Private Limited. All rights reserved. · CIN: [ ]</p>
+          <p>© 2026 Valimai Private Limited. All rights reserved.</p>
           <p>Strategic Business Consulting. Meaningful Business Growth.</p>
           <p className="text-xs">Designed by Meark</p>
         </div>
