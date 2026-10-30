@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Eye, Target } from "lucide-react";
+import { ArrowRight, Check, Eye, Target, UserRound } from "lucide-react";
 import hero from "@/assets/hero-about.jpg";
 import { values } from "@/lib/content/offerings";
 import { pageHead } from "@/lib/seo";
@@ -122,10 +122,14 @@ function About() {
           <SectionHeading eyebrow="Leadership" title="The people you work with" />
           <div className="mt-14 max-w-xl">
             {company.leaders.map((leader) => (
-              <Reveal key={leader.name} className="founder-card border-t-2 border-teal bg-background p-9 transition-all duration-500 hover:-translate-y-1 hover:shadow-soft md:p-12">
-                <p className="mb-8 font-display text-5xl text-teal/60" aria-hidden="true">GK</p>
-                <h3 className="text-3xl text-navy">{leader.name}</h3>
-                <p className="mt-3 text-sm font-medium text-muted-foreground">{leader.designation}</p>
+              <Reveal key={leader.name} className="founder-card grid gap-7 border-t-2 border-teal bg-background p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-soft sm:grid-cols-[10rem_minmax(0,1fr)] sm:items-center md:p-9">
+                <div role="img" aria-label="Founder portrait placeholder" className="flex aspect-[3/4] w-full max-w-[12rem] items-center justify-center border border-border bg-surface text-teal/60 sm:max-w-none">
+                  <UserRound className="h-20 w-20" strokeWidth={1} aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-2xl text-navy">{leader.name}</h3>
+                  <p className="mt-3 text-sm font-medium text-muted-foreground">{leader.designation}</p>
+                </div>
               </Reveal>
             ))}
           </div>

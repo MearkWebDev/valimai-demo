@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "./Logo";
 import { offerings } from "@/lib/content/offerings";
 import { company } from "@/lib/content/company";
@@ -39,10 +40,10 @@ export function SiteFooter() {
         </div>
         <div className="lg:col-span-3">
           <p className={h}>Contact</p>
-          <address className="space-y-2 text-sm not-italic leading-relaxed text-on-dark-muted">
-            <p>{company.location}</p>
-            <p><a href={`mailto:${company.email}`} className={a}>{company.email}</a></p>
-            <p><a href={company.phoneHref} className={a}>{company.phone}</a></p>
+          <address className="space-y-4 text-sm not-italic leading-relaxed text-on-dark-muted">
+            <p className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-cyan" aria-hidden="true" /><span>{company.location}</span></p>
+            <p><a href={`mailto:${company.email}`} className={`${a} flex items-start gap-3`}><Mail className="mt-0.5 h-4 w-4 shrink-0 text-cyan" aria-hidden="true" /><span className="min-w-0 break-words">{company.email}</span></a></p>
+            <p><a href={company.phoneHref} className={`${a} flex items-start gap-3`}><Phone className="mt-0.5 h-4 w-4 shrink-0 text-cyan" aria-hidden="true" /><span>{company.phone}</span></a></p>
           </address>
           <p className={`${h} mt-8`}>Legal</p>
           <ul className="space-y-2">
@@ -54,9 +55,10 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-on-dark/10">
-        <div className="container-x flex flex-col gap-2 py-6 text-xs text-on-dark-muted md:flex-row md:justify-between">
+        <div className="container-x flex flex-col gap-3 py-6 text-xs text-on-dark-muted md:flex-row md:flex-wrap md:items-center md:justify-between">
           <p>© 2026 Valimai Private Limited. All rights reserved. · CIN: [ ]</p>
           <p>Strategic Business Consulting. Meaningful Business Growth.</p>
+          <p className="text-xs">Designed by Meark</p>
         </div>
       </div>
     </footer>
