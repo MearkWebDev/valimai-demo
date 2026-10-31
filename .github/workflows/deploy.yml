@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       # 1. Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,23 +21,37 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
 
-      # 3. Install dependencies
+      # 3. Verify project files
+      - name: Check project files
+        run: |
+          ls -la
+          test -f package.json || (echo "package.json not found" && exit 1)
+
+      # 4. Install dependencies
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: |
+          npm cache clean --force
+          npm install --no-audit --no-fund --legacy-peer-deps
 
-      # 4. Build React application
+      # 5. Build React application
       - name: Build React app
         run: npm run build
 
-      # 5. Setup SSH
+      # 6. Verify build output
+      - name: Check build output
+        run: |
+          test -d dist || (echo "dist folder not found" && exit 1)
+          ls -la dist
+
+      # 7. Setup SSH
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # 6. Test SSH connection
+      # 8. Test SSH connection
       - name: Test SSH connection
         run: |
           ssh -4 \
@@ -49,7 +64,7 @@ jobs:
             "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" \
             "echo 'SSH connection successful'"
 
-      # 7. Deploy to Hostinger
+      # 9. Deploy to Hostinger
       - name: Deploy valimai.net
         run: |
           rsync -avz --delete \
