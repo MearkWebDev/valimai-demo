@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       # 1. Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,27 +25,28 @@ jobs:
 
       # 3. Install dependencies
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: |
+          npm cache clean --force
+
+          npm install \
+            --no-audit \
+            --no-fund \
+            --legacy-peer-deps
 
       # 4. Build React application
       - name: Build React app
         run: npm run build
 
-      # 5. Check build output
-      - name: Check build output
+      # 5. Verify build output
+      - name: Verify build output
         run: |
-          echo "Checking generated build files..."
-
-          if [ -d ".output" ]; then
-            echo "Build output found: .output"
-            ls -la .output
-
-          elif [ -d "dist" ]; then
+          if [ -d "dist" ]; then
             echo "Build output found: dist"
-            ls -la dist
-
+          elif [ -d ".output/public" ]; then
+            echo "Build output found: .output/public"
           else
-            echo "Error: Build output not found."
+            echo "Error: Static build output not found."
+            echo "Expected dist/ or .output/public/"
             exit 1
           fi
 
@@ -57,31 +59,55 @@ jobs:
       # 7. Test SSH connection
       - name: Test SSH connection
         run: |
-          ssh -p "${{ secrets.SSH_PORT }}" \
+          ssh \
+            -p "${{ secrets.SSH_PORT }}" \
             -o ConnectTimeout=30 \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" \
             "echo 'SSH connection successful'"
 
-      # 8. Deploy to Hostinger
+      # 8. Prepare Hostinger deployment directory
+      - name: Prepare deployment directory
+        run: |
+          ssh \
+            -p "${{ secrets.SSH_PORT }}" \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" \
+            "mkdir -p '${{ secrets.DEPLOY_PATH }}'"
+
+      # 9. Deploy website to Hostinger
       - name: Deploy valimai.net
         run: |
-          if [ -d ".output" ]; then
-            DEPLOY_SOURCE=".output/"
-          elif [ -d "dist" ]; then
+          if [ -d "dist" ]; then
             DEPLOY_SOURCE="dist/"
+          elif [ -d ".output/public" ]; then
+            DEPLOY_SOURCE=".output/public/"
           else
-            echo "Error: No build output found."
+            echo "Error: Build output not found."
             exit 1
           fi
 
-          echo "Deploying $DEPLOY_SOURCE"
+          echo "Deploying website files..."
 
           rsync -avz --delete \
-            -e "ssh -p ${{ secrets.SSH_PORT }} \
+            -e "ssh \
+              -p ${{ secrets.SSH_PORT }} \
               -o ConnectTimeout=30 \
               -o StrictHostKeyChecking=no \
               -o UserKnownHostsFile=/dev/null" \
             "$DEPLOY_SOURCE" \
             "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}"
+
+      # 10. Verify deployment
+      - name: Verify deployment
+        run: |
+          ssh \
+            -p "${{ secrets.SSH_PORT }}" \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" \
+            "ls -la '${{ secrets.DEPLOY_PATH }}'"
+
+          echo "Deployment completed successfully!"
