@@ -1,3 +1,4 @@
+
 name: Deploy valimai.net to Hostinger
 
 on:
@@ -11,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       # 1. Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,17 +21,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       # 3. Install dependencies
       - name: Install dependencies
-        run: |
-          npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund
 
       # 4. Build React application
       - name: Build React app
-        run: |
-          npm run build
+        run: npm run build
 
       # 5. Setup SSH
       - name: Setup SSH
@@ -52,8 +49,8 @@ jobs:
             "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" \
             "echo 'SSH connection successful'"
 
-      # 7. Deploy React build to Hostinger
-      - name: Deploy to valimai.net
+      # 7. Deploy to Hostinger
+      - name: Deploy valimai.net
         run: |
           rsync -avz --delete \
             -e "ssh -4 \
