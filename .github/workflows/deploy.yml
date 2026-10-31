@@ -12,68 +12,76 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       # 1. Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
       # 2. Setup Node.js
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      # 3. Verify project files
-      - name: Check project files
-        run: |
-          ls -la
-          test -f package.json || (echo "package.json not found" && exit 1)
-
-      # 4. Install dependencies
+      # 3. Install dependencies
       - name: Install dependencies
-        run: |
-          npm cache clean --force
-          npm install --no-audit --no-fund --legacy-peer-deps
+        run: npm install --no-audit --no-fund
 
-      # 5. Build React application
+      # 4. Build React application
       - name: Build React app
         run: npm run build
 
-      # 6. Verify build output
+      # 5. Check build output
       - name: Check build output
         run: |
-          test -d dist || (echo "dist folder not found" && exit 1)
-          ls -la dist
+          echo "Checking generated build files..."
 
-      # 7. Setup SSH
+          if [ -d ".output" ]; then
+            echo "Build output found: .output"
+            ls -la .output
+
+          elif [ -d "dist" ]; then
+            echo "Build output found: dist"
+            ls -la dist
+
+          else
+            echo "Error: Build output not found."
+            exit 1
+          fi
+
+      # 6. Setup SSH
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # 8. Test SSH connection
+      # 7. Test SSH connection
       - name: Test SSH connection
         run: |
-          ssh -4 \
-            -p "${{ secrets.SSH_PORT }}" \
+          ssh -p "${{ secrets.SSH_PORT }}" \
             -o ConnectTimeout=30 \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -o ServerAliveInterval=60 \
-            -o ServerAliveCountMax=3 \
             "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}" \
             "echo 'SSH connection successful'"
 
-      # 9. Deploy to Hostinger
+      # 8. Deploy to Hostinger
       - name: Deploy valimai.net
         run: |
+          if [ -d ".output" ]; then
+            DEPLOY_SOURCE=".output/"
+          elif [ -d "dist" ]; then
+            DEPLOY_SOURCE="dist/"
+          else
+            echo "Error: No build output found."
+            exit 1
+          fi
+
+          echo "Deploying $DEPLOY_SOURCE"
+
           rsync -avz --delete \
-            -e "ssh -4 \
-              -p ${{ secrets.SSH_PORT }} \
+            -e "ssh -p ${{ secrets.SSH_PORT }} \
               -o ConnectTimeout=30 \
               -o StrictHostKeyChecking=no \
-              -o UserKnownHostsFile=/dev/null \
-              -o ServerAliveInterval=60 \
-              -o ServerAliveCountMax=3" \
-            dist/ \
+              -o UserKnownHostsFile=/dev/null" \
+            "$DEPLOY_SOURCE" \
             "${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}"
